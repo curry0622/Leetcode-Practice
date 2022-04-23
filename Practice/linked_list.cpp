@@ -5,7 +5,7 @@
 // public:
 //     ListNode(int n):val(n),next(0){};
 // friend class MyLinkedList;
-// }
+// };
 
 class MyLinkedList {
 private:
@@ -29,20 +29,21 @@ public:
         newNode -> next = head;
         head = newNode;
         length += 1;
-        // cout << "addAtHead: ";
-        // printList();
     }
 
     void addAtTail(int val) {
         ListNode* newNode = new ListNode(val);
         ListNode* curr = head;
+        if(length == 0) {
+            head = newNode;
+            length += 1;
+            return;
+        }
         while(curr -> next) {
             curr = curr -> next;
         }
         curr -> next = newNode;
         length += 1;
-        // cout << "addAtTail: ";
-        // printList();
     }
 
     void addAtIndex(int index, int val) {
@@ -50,27 +51,43 @@ public:
             return;
         ListNode* newNode = new ListNode(val);
         ListNode* curr = head;
+        if(index == 0) {
+            newNode -> next = head;
+            head = newNode;
+            length += 1;
+            return;
+        }
         for(int i = 0; i < index - 1; i++) {
             curr = curr -> next;
         }
         newNode -> next = curr -> next;
         curr -> next = newNode;
         length += 1;
-        // cout << "addAtIndex " << index << ": ";
-        // printList();
+    }
+
+    void delAtHead() {
+        if(length == 0)
+            return;
+        head = head -> next;
+        length -= 1;
     }
 
     void deleteAtIndex(int index) {
         if(index >= length)
             return;
+        if(index == 0) {
+            delAtHead();
+            return;
+        }
         ListNode* curr = head;
         for(int i = 0; i < index - 1; i++) {
             curr = curr -> next;
         }
-        curr -> next = curr -> next -> next;
+        if(curr -> next)
+            curr -> next = curr -> next -> next;
+        else
+            curr -> next = NULL;
         length -= 1;
-        // cout << "delAtIndex " << index << ": ";
-        // printList();
     }
 
     void printList() {
