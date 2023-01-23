@@ -24,7 +24,6 @@ public:
             string sub = str.substr(0, i);
             string rev = sub;
             reverse(rev.begin(), rev.end());
-            cout << sub << " " << rev << endl;
 
             if (sub == rev) {
                 stk.push(sub);
