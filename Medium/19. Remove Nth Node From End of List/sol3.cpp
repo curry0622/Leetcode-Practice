@@ -12,20 +12,26 @@ class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
         ListNode* fast = head;
-        for(int i = 0; i < n; i++)
-            fast = fast -> next;
+        ListNode* slow = head;
 
-        ListNode* slow = head, *prev;
-        while(fast) {
+        // First move fast ptr n times
+        for (int i = 0; i < n; i++)
+            fast = fast->next;
+
+        // Move fast & slow ptr simultaneously until fast ptr reach the end
+        // and also record the previous ptr of slow ptr
+        ListNode* prev = NULL;
+        while (fast) {
             prev = slow;
-            fast = fast -> next;
-            slow = slow -> next;
+            fast = fast->next;
+            slow = slow->next;
         }
 
-        if(prev)
-            prev -> next = slow -> next;
+        // Remove the next node of the prev ptr
+        if (!prev)
+            head = head->next;
         else
-            head = head -> next;
+            prev->next = slow->next;
 
         return head;
     }
