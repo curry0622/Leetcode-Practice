@@ -11,21 +11,20 @@
  */
 class Solution {
 public:
-    int prev = INT_MIN;
     int minDiff = INT_MAX;
+    int prev = -1;
 
     int minDiffInBST(TreeNode* root) {
-        inorder(root);
-        return minDiff;
-    }
+        if (root->left != nullptr)
+            minDiffInBST(root->left);
 
-    void inorder(TreeNode* root) {
-        if (!root)
-            return;
-        inorder(root->left);
-        if (prev != INT_MIN)
-            minDiff = min(minDiff, abs(prev - root->val));
+        if (prev >= 0)
+            minDiff = min(minDiff, root->val - prev);
         prev = root->val;
-        inorder(root->right);
+
+        if (root->right != nullptr)
+            minDiffInBST(root->right);
+
+        return minDiff;
     }
 };
