@@ -2,3 +2,4 @@ test.cpp
 test.exe
 a.exe
 /.vscode
+.DS_Store
